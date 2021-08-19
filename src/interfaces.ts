@@ -1,5 +1,14 @@
+type AddFn = (a: number, b: number) => number;
+interface AddFn2 {
+  (a: number, b: number): number;
+}
+
+const add: AddFn = (a: number, b: number) => a + b;
+const add2: AddFn2 = (a: number, b: number) => a + b;
+
 interface Named {
   readonly name: string;
+  outputName?: string;
 }
 
 interface Greetable extends Named {

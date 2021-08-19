@@ -66,8 +66,8 @@ class UniqueLuxuryCar extends Vehicle {
   }
 }
 
-const toyota = new Car("Toyota", 24000, new Date().getFullYear());
-const yamaha = new Motorcycle("Yamaha", 22000, new Date().getFullYear());
+const toyota = new Car("Toyota", 24_000, new Date().getFullYear());
+const yamaha = new Motorcycle("Yamaha", 22_000, new Date().getFullYear());
 const uniqueLuxuryCar = UniqueLuxuryCar.getInstance();
 const uniqueLuxuryCar2 = UniqueLuxuryCar.getInstance();
 
