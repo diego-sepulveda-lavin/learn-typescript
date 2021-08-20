@@ -136,3 +136,9 @@ const fetchedUserDataFromBackend = {
 
 console.log(fetchedUserDataFromBackend.job && fetchedUserDataFromBackend.job.title); // common JS check
 console.log(fetchedUserDataFromBackend.job?.title); // with optional chaining
+
+// Nullish Coalescing
+const userInput = null; // data we don't know if is null
+const storedData = userInput ?? "DEFAULT"; // if userInput is STRICTLY null or undefined the use DEFAULT
+
+console.log(storedData);
