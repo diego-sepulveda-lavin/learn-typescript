@@ -1,3 +1,4 @@
+// Intersection types
 type Admin = {
   name: string;
   privileges: string[];
@@ -16,6 +17,7 @@ const e1: ElevatedEmployee = {
   startDate: new Date(),
 };
 
+// Type Guards
 type Combinable = string | number;
 type Numeric = number | boolean;
 
@@ -23,16 +25,22 @@ type Universal = Combinable & Numeric;
 
 const universalVariable: Universal = 2;
 
-const sum = (a: Combinable, b: Combinable) => {
+// Type Guards with typeof
+function sum(a: number, b: number): number; // function overload to get better recognition depending on inputs
+function sum(a: string, b: string): string; // function overload to get better recognition depending on inputs
+function sum(a: number, b: string): string; // function overload to get better recognition depending on inputs
+function sum(a: string, b: number): string; // function overload to get better recognition depending on inputs
+function sum(a: Combinable, b: Combinable) {
   if (typeof a === "string" || typeof b === "string") {
     return a.toString() + b.toString();
   }
   return a + b;
-};
+}
 console.log(sum("2", "3"));
 console.log(sum("2", 3));
 console.log(sum(2, 3));
 
+// Type Guards with "string" in
 type UnknownEmployee = Employee | Admin;
 
 function printEmployeeInformation(emp: UnknownEmployee) {
@@ -46,6 +54,8 @@ function printEmployeeInformation(emp: UnknownEmployee) {
 }
 
 printEmployeeInformation(e1);
+
+// Type Guards with instance of
 
 class Bike {
   drive() {
@@ -75,3 +85,54 @@ function useMachine(machine: Machine) {
 }
 useMachine(m1);
 useMachine(m2);
+
+//Discriminated Unions
+interface Bird {
+  type: "Bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "Horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed: number;
+  switch (animal.type) {
+    case "Bird":
+      speed = animal.flyingSpeed;
+      break;
+    case "Horse":
+      speed = animal.runningSpeed;
+  }
+  console.log("Animal moving at speed: " + speed);
+}
+
+moveAnimal({ type: "Bird", flyingSpeed: 30 });
+
+// Index Properties
+interface ErrorContainer {
+  [prop: string]: string;
+}
+
+const erroBag: ErrorContainer = {
+  email: "Not a valid email!",
+  username: "Not a valid username!",
+};
+
+// Optional Chaining
+const fetchedUserDataFromBackend = {
+  id: "u1",
+  name: "John",
+  job: {
+    // data that may not be ready yet
+    title: "CEO",
+    description: "My own company",
+  },
+};
+
+console.log(fetchedUserDataFromBackend.job && fetchedUserDataFromBackend.job.title); // common JS check
+console.log(fetchedUserDataFromBackend.job?.title); // with optional chaining
